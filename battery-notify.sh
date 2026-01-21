@@ -4,18 +4,18 @@ export DISPLAY="$(w -h $USER | awk '$3 ~ /:[0-9.]*/{print $3}')"
 XAUTHORITY="$HOME/.Xauthority"
 
 SOUND_COMMAND="${SOUND_COMMAND:-paplay}"
-CRITICAL_LEVEL="${CRITICAL_LEVEL:-5}"
+CRITICAL_LEVEL="${CRITICAL_LEVEL:-10}"
 CRITICAL_ICON="${CRITICAL_ICON:-"battery-empty"}"
-CRITICAL_SOUND="${CRITICAL_SOUND:-"/usr/share/sounds/purple/alert.wav"}"
-LOW_LEVEL="${LOW_LEVEL:-10}"
+CRITICAL_SOUND="${CRITICAL_SOUND:-"/usr/share/sounds/LinuxMint/stereo/dialog-question.wav"}"
+LOW_LEVEL="${LOW_LEVEL:-20}"
 LOW_ICON="${LOW_ICON:-"battery-caution"}"
-LOW_SOUND="${LOW_SOUND:-""}"
+LOW_SOUND="${LOW_SOUND:-"/usr/share/sounds/LinuxMint/stereo/dialog-question.wav"}"
 
 if [[ -r "$HOME/.dbus/Xdbus" ]]; then
 	source "$HOME/.dbus/Xdbus"
 fi
 
-battery_level="$(acpi -b | grep -v "Charging" | grep -P -o '([0-9]+(?=%))')"
+battery_level="$(acpi -b | grep -v " 0%" | grep -v "Charging" | grep -P -o '([0-9]+(?=%))')"
 
 if [[ -z "$battery_level" ]]; then
 	exit 0
